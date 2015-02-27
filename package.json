@@ -10,5 +10,10 @@
   "license": "MIT",
   "dependencies": {
     "rsvp": "~3.0.17"
+  },
+  "devDependencies": {
+    "browserify": "~9.0.3",
+    "vinyl-source-stream": "~1.0.0",
+    "node-static": "~0.7.6"
   }
 }

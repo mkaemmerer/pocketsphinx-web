@@ -5,7 +5,7 @@ var self = this.self;
 
 function startup(onMessage) {
   self.onmessage = function(event) {
-    var pocketsphinxJS = (event.data && event.data.length && (event.data.length > 0)) ? event.data : '../pocketsphinx.js';
+    var pocketsphinxJS = (event.data && event.data.length && (event.data.length > 0)) ? event.data : './pocketsphinx.js';
     importScripts(pocketsphinxJS);
     self.onmessage = onMessage;
     self.postMessage({});

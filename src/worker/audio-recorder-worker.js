@@ -1,5 +1,6 @@
 'use strict';
 
+var self = this.self;
 var recBuffers = [], outputSampleRate = 16000, inSampleRate, outputBufferLength;
 
 this.onmessage = function(e){
@@ -48,7 +49,7 @@ function record(inputBuffer){
     output.command = 'newBuffer';
     output.data = result;
     if (isSilent){ output.error = 'silent'; }
-    this.postMessage(output);
+    self.postMessage(output);
     recBuffers = recBuffers.slice(indexOut);
   }
 }

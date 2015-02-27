@@ -1,6 +1,6 @@
 'use strict';
 
-var AUDIO_RECORDER_WORKER = '/src/worker/audio-recorder-worker.js';
+var AUDIO_RECORDER_WORKER = '/worker/audio-recorder-worker.js';
 
 var AudioRecorder = function(source, cfg) {
   var config             = cfg || {};

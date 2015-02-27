@@ -9,7 +9,7 @@ var getMicrophone   = require('./util/get-microphone');
 
 //Constructor
 function Sphinx(path_to_workers){
-  this.path_to_workers = path_to_workers || './workers';
+  this.path_to_workers = path_to_workers || './worker';
 
   this._callbackManager = new CallbackManager();
   this.recorder         = this._startRecorder();
@@ -17,13 +17,13 @@ function Sphinx(path_to_workers){
 }
 //Control
 Sphinx.prototype.startRecording = function(grammar_id){
-  this.recorder
+  return this.recorder
     .then(function(recorder){
       recorder.start(grammar_id);
     });
 };
 Sphinx.prototype.stopRecording = function(){
-  this.recorder
+  return this.recorder
     .then(function(recorder){
       recorder.stop();
     });
@@ -33,37 +33,45 @@ Sphinx.prototype.onrecognition = function(){};
 
 // This initializes the recognizer. When it calls back, we add words
 Sphinx.prototype.initialize = function() {
-  var init_recorder = this.recorder
-    .then(this._initRecognizer.bind(this))
-    .then(this._postMessage({ command: 'initialize' }));
+  if(!this._initialized){
+    var init_recognizer = this.recognizer
+      .then(this._initRecognizer.bind(this))
+      .then(function(){ return this.recognizer; }.bind(this))
+      .then(this._postMessage({ command: 'initialize' }));
 
-  var set_consumer = RSVP.hash(this.recorder, this.recognizer)
-    .then(function(results){
-      var recorder   = results.recorder;
-      var recognizer = results.recognizer;
+    var set_consumer = RSVP.hash({recorder: this.recorder, recognizer: this.recognizer})
+      .then(function(results){
+        var recorder   = results.recorder;
+        var recognizer = results.recognizer;
 
-      recorder.consumers.push(recognizer);
-    });
+        recorder.consumers.push(recognizer);
+      });
 
-  return RSVP.all([init_recorder, set_consumer]);
+    this._initialized = RSVP.all([init_recognizer, set_consumer]);
+  }
+
+  return this._initialized;
 };
 // This adds words to the recognizer
 Sphinx.prototype.addWords = function(words) {
-  return this._postMessage({
-    command: 'addWords',
-    data:    words
-  });
+  return this.recognizer
+    .then(this._postMessage({
+      command: 'addWords',
+      data:    words
+    }));
 };
 // This adds a grammar to the recognizer
 Sphinx.prototype.addGrammar = function(grammar) {
-  return this._postMessage({
-    command: 'addGrammar',
-    data:    grammar
-  });
+  return this.recognizer
+    .then(this._postMessage({
+      command: 'addGrammar',
+      data:    grammar
+    }));
 };
 // This adds words and a grammar to the recognizer
 Sphinx.prototype.configure = function(words, grammar){
-  return this.addWords(words)
+  return this.initialize()
+    .then(function(){ return this.addWords(words);     }.bind(this))
     .then(function(){ return this.addGrammar(grammar); }.bind(this));
 };
 
@@ -74,7 +82,7 @@ Sphinx.prototype._startRecorder   = function(){
     .then(function(input){
       // Once the user authorises access to the microphone, we instantiate the recorder
       return new AudioRecorder(input, {
-        worker:        path_to_workers + '/audioRecorderWorker',
+        worker:        path_to_workers + '/audio-recorder-worker.js',
         errorCallback: function() { /* ??? */ }
       });
     });
