@@ -9,7 +9,7 @@ It provides a convenient, promise-based API for loading pocketsphinx in a web-wo
 [NPM](https://npmjs.org) users can install using:
 
 ```
-npm install pocketsphinx
+npm install pocket-sphinx
 ```
 
 
