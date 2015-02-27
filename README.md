@@ -4,6 +4,33 @@ This project is an opinionated high-level wrapper for the [PocketSphinx.js speec
 It provides a convenient, promise-based API for loading pocketsphinx in a web-worker.
 
 
+## Installing
+
+[NPM](https://npmjs.org) users can install using:
+
+```
+npm install pocketsphinx
+```
+
+
+Alternatively, you can use a script tag to load pocketsphinx. The api will be available under the object```window.Sphinx```.
+
+
+## Building
+
+Sphinx is built using [Gulp](https://github.com/gulpjs/gulp). If you have [npm](https://npmjs.org) installed, you can build the project by calling
+
+```
+npm install && gulp 
+```
+
+
+## Examples
+
+Web-workers can't be run directly from the filesystem, so to run the examples you will need to create a webserver.
+You can start one using ```gulp example-server```, then load the example at ```localhost:9000```.
+
+
 ## Resources
 
 I am not an expert on speech recognition, nor on pocketsphinx.
