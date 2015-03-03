@@ -1,5 +1,5 @@
 {
-  "name": "pocket-sphinx",
+  "name": "pocketsphinx-web",
   "version": "0.0.0",
   "description": "Voice recognition in the browser with pocketsphinx",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/mkaemmerer/pocketsphinx.git"
+    "url": "git://github.com/mkaemmerer/pocketsphinx-web.git"
   },
   "author": "Matt Kaemmerer <matthew.kaemmerer@gmail.com>",
   "license": "MIT",

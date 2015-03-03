@@ -1,6 +1,6 @@
 # Overview
 
-This project is an opinionated high-level wrapper for the [PocketSphinx.js speech recognizer](https://github.com/syl22-00/pocketsphinx.js).
+Pocketsphinx-Web is a an opinionated high-level wrapper for the [PocketSphinx.js speech recognizer](https://github.com/syl22-00/pocketsphinx.js).
 It provides a convenient, promise-based API for loading pocketsphinx in a web-worker.
 
 
@@ -9,7 +9,7 @@ It provides a convenient, promise-based API for loading pocketsphinx in a web-wo
 [NPM](https://npmjs.org) users can install using:
 
 ```
-npm install pocket-sphinx
+npm install pocketsphinx-web
 ```
 
 
@@ -18,7 +18,7 @@ Alternatively, you can use a script tag to load pocketsphinx. The api will be av
 
 ## Building
 
-Sphinx is built using [Gulp](https://github.com/gulpjs/gulp). If you have [npm](https://npmjs.org) installed, you can build the project by calling
+Pocketsphinx-Web is built using [Gulp](https://github.com/gulpjs/gulp). If you have [npm](https://npmjs.org) installed, you can build the project by calling
 
 ```
 npm install && gulp 
